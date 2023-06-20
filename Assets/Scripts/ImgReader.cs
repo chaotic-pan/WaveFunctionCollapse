@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -9,7 +10,8 @@ public class ImgReader : MonoBehaviour
     public int gridSize;
     public int gridOffset;
     public string saveLocation = "Assets/tilesetNEW";
-    int tileNumber = 1;
+    int tileNumber = 0;
+    private List<Texture2D> textures = new List<Texture2D>();
 
     // Start is called before the first frame update
     void Start()
@@ -42,12 +44,18 @@ public class ImgReader : MonoBehaviour
                 }
 
                 p = 0;
+                tex = new Texture2D(gridSize, gridSize);
                 tex.SetPixels(newPixels, 0);
-                bytes = tex.EncodeToPNG();
-                saveTile(bytes, tileNumber);
+                
+                if (!TextureEqualsAny(tex))
+                {
+                    textures.Add(tex);
+                     bytes = tex.EncodeToPNG();
+                    saveTile(bytes, tileNumber);
+                }
             }
         }
-
+        Debug.Log("Done");
     }
 
     void saveTile(byte[] tilebytes, int fileNumber)
@@ -58,6 +66,40 @@ public class ImgReader : MonoBehaviour
         File.WriteAllBytes(path, tilebytes);
         AssetDatabase.ImportAsset(path);
     }
+
+    bool TextureEqualsAny(Texture2D tex)
+    {
+        if (textures.Count == 0)
+        {
+            return false;
+        }
+        
+        foreach (var texture in textures)
+        {
+            if (TexturesEqual(tex,texture))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
     
-    
+    bool TexturesEqual(Texture2D tex1, Texture2D tex2)
+    {
+        var firstPix = tex1.GetPixels();
+        var secondPix = tex2.GetPixels();
+
+        for (int i= 0;i < firstPix.Length;i++)
+        {
+            if (!firstPix[i].ToString().Equals(secondPix[i].ToString()))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
 }

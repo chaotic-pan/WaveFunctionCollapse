@@ -314,8 +314,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputImage: {fileID: 21300000, guid: 9aeabc7a95c1fb34f86b4f5baac422c2, type: 3}
-  ImgSize: {x: 0, y: 0}
-  GidSize: 3
+  gridSize: 32
+  gridOffset: 16
   saveLocation: Assets/tilesetNEW
 --- !u!114 &2055131427
 MonoBehaviour:
