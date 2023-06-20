@@ -24,35 +24,30 @@ public class ImgReader : MonoBehaviour
         
         newPixels = new Color[gridSize*gridSize];
         p = 0;
-        // for (int i = 0; i < imgSize.x; i+=gridOffset)
-        // {
-        //     for (int q = i; q < i+gridSize; q++)
-        //     {
-        //         Debug.Log(q);
-        //
-        //         // int Ix = (x < imgSize.x) ? x : x - (int)imgSize.x;
-        //         // int Iy = (y < imgSize.y) ? y : y - (int)imgSize.y;
-        //         // int pos = (int)(Ix + Iy * imgSize.x);
-        //     }
-        //     Debug.Log("NEW LOOP");
-        //     Debug.Log(i);
-        // }
-        p = 0;
-        for (int y = 0; y < gridSize; y++)
+        for (int y = 0; y < imgSize.y; y+=gridOffset)
         {
-            for (int x = (int)(1.5*gridSize); x < (int)(2.5*gridSize); x++)
+            for (int x = 0; x < imgSize.x; x+=gridOffset)
             {
-                int Iy = (y < imgSize.y) ? y : y - (int)imgSize.y;
-                int Ix = (x < imgSize.x) ? x : x - (int)imgSize.x;
+                for (int Ty = y; Ty < y+gridSize; Ty++)
+                {
+                    for (int Tx = x; Tx < x+gridSize; Tx++)
+                    {
+                        int Iy = (Ty < imgSize.y) ? Ty : Ty - (int)imgSize.y;
+                        int Ix = (Tx < imgSize.x) ? Tx : Tx - (int)imgSize.x;
 
-                int pos = (int)(Ix + Iy * imgSize.x);
-                newPixels[p] = pixels[pos];
-                p++;
+                        int pos = (int)(Ix + Iy * imgSize.x);
+                        newPixels[p] = pixels[pos];
+                        p++;
+                    }
+                }
+
+                p = 0;
+                tex.SetPixels(newPixels, 0);
+                bytes = tex.EncodeToPNG();
+                saveTile(bytes, tileNumber);
             }
         }
-        tex.SetPixels(newPixels, 0);
-        bytes = tex.EncodeToPNG();
-        saveTile(bytes, tileNumber);
+
     }
 
     void saveTile(byte[] tilebytes, int fileNumber)
