@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2393530090702526713}
   - component: {fileID: 5105530051119060532}
   m_Layer: 0
-  m_Name: PathEdge6.1
+  m_Name: _TileTemplate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 767305176383826964}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 25, y: -25, z: 0}
-  m_LocalScale: {x: 50.079998, y: 50.079998, z: 1}
+  m_LocalScale: {x: 100, y: 100, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -5481250347754363868, guid: c40a337a1145bd740ad8b2626e9d8607, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -80,7 +80,7 @@ SpriteRenderer:
   m_Size: {x: 0.5, y: 0.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &5105530051119060532
@@ -96,28 +96,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frequencyHints: 1
-  UpConnections:
-  - {fileID: 5105530051119060532, guid: 0761296cb7740414d90c375d6a717db3, type: 3}
-  - {fileID: 5105530051119060532, guid: 95c2b49be7acda046a1ef54eeba10f67, type: 3}
-  DownConnections:
-  - {fileID: 5105530051119060532, guid: 7cdd9447ef9c5cd48be45a0d2c257df1, type: 3}
-  - {fileID: 5105530051119060532, guid: ac4c94546be2fd84c922110825e37ab7, type: 3}
-  - {fileID: 5105530051119060532, guid: 6f0a07d2ad4254e4ebcac071f763b889, type: 3}
-  - {fileID: 5105530051119060532, guid: 469f79c3b74f83448876bdafcf93af1d, type: 3}
-  - {fileID: 5105530051119060532, guid: 47da5d9fabe558c4b9d9e688d50f2e08, type: 3}
-  - {fileID: 5105530051119060532, guid: 320c0c8d42b3d334092ec59a791923e8, type: 3}
-  - {fileID: 5105530051119060532, guid: 2be06fa7f3fbcc641a90e384c196f22b, type: 3}
-  LeftConnections:
-  - {fileID: 5105530051119060532, guid: 7cdd9447ef9c5cd48be45a0d2c257df1, type: 3}
-  - {fileID: 5105530051119060532, guid: ac4c94546be2fd84c922110825e37ab7, type: 3}
-  - {fileID: 5105530051119060532, guid: 6f0a07d2ad4254e4ebcac071f763b889, type: 3}
-  - {fileID: 5105530051119060532, guid: 469f79c3b74f83448876bdafcf93af1d, type: 3}
-  - {fileID: 5105530051119060532, guid: 2be06fa7f3fbcc641a90e384c196f22b, type: 3}
-  - {fileID: 5105530051119060532, guid: e94ef203545977e4bb5cc0ab913e7628, type: 3}
-  - {fileID: 5105530051119060532, guid: 63c2624be7f6e1b47a63b52fe861bfa2, type: 3}
-  RightConnections:
-  - {fileID: 5105530051119060532, guid: 820a5b12e725de842920f647f7c324df, type: 3}
-  - {fileID: 5105530051119060532, guid: 95c2b49be7acda046a1ef54eeba10f67, type: 3}
+  UpConnections: []
+  DownConnections: []
+  LeftConnections: []
+  RightConnections: []
   UpRules: []
   DownRules: []
   LeftRules: []

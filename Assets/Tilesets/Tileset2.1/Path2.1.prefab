@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 767305176383826964}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 25, y: -25, z: 0}
-  m_LocalScale: {x: 156.5, y: 156.5, z: 1}
+  m_LocalScale: {x: 50.079998, y: 50.079998, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_DrawMode: 1
+  m_Size: {x: 0.5, y: 0.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -95,6 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2775b1608a4b8e49a3832dfaa08f956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  frequencyHints: 1
   UpConnections:
   - {fileID: 5105530051119060532}
   - {fileID: 5105530051119060532}
@@ -147,3 +148,7 @@ MonoBehaviour:
   - {fileID: 5105530051119060532, guid: e94ef203545977e4bb5cc0ab913e7628, type: 3}
   - {fileID: 5105530051119060532, guid: 0009518e557969345bfb9e0374d90995, type: 3}
   - {fileID: 5105530051119060532, guid: 5cde5281384cd6c41a7ffc89622950f7, type: 3}
+  UpRules: []
+  DownRules: []
+  LeftRules: []
+  RightRules: []

@@ -1,7 +1,121 @@
 fileFormatVersion: 2
-guid: 0121428a7a9cc6b4fa9c0fc4816aa9ec
+guid: 9aeabc7a95c1fb34f86b4f5baac422c2
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 3787085044280237322
+    second: ex_0
+  - first:
+      213: 620329423106741520
+    second: ex_1
+  - first:
+      213: -4556787433441999665
+    second: ex_2
+  - first:
+      213: 921531874280530156
+    second: ex_3
+  - first:
+      213: 7530309185555215597
+    second: ex_4
+  - first:
+      213: -1599119713609095185
+    second: ex_5
+  - first:
+      213: 7488216685235056884
+    second: ex_6
+  - first:
+      213: -3119054546526086706
+    second: ex_7
+  - first:
+      213: -30860623647620085
+    second: ex_8
+  - first:
+      213: -7932190786081732170
+    second: ex_9
+  - first:
+      213: 7837761437187884835
+    second: ex_10
+  - first:
+      213: -5944307502072383906
+    second: ex_11
+  - first:
+      213: 7286527426173557886
+    second: ex_12
+  - first:
+      213: 2845897543485834065
+    second: ex_13
+  - first:
+      213: -3510937200661007087
+    second: ex_14
+  - first:
+      213: 1193409045848287672
+    second: ex_15
+  - first:
+      213: -6827518322445619790
+    second: ex_16
+  - first:
+      213: 281729653962480958
+    second: ex_17
+  - first:
+      213: -8235027111246655398
+    second: ex_18
+  - first:
+      213: -853957742923458347
+    second: ex_19
+  - first:
+      213: -2280936511368831233
+    second: ex_20
+  - first:
+      213: 3122632491545499206
+    second: ex_21
+  - first:
+      213: 7648085081007767376
+    second: ex_22
+  - first:
+      213: 4271586597054480294
+    second: ex_23
+  - first:
+      213: -5886988028542099227
+    second: ex_24
+  - first:
+      213: -645764089945160934
+    second: ex_25
+  - first:
+      213: 109090116814410935
+    second: ex_26
+  - first:
+      213: 1912688773632803921
+    second: ex_27
+  - first:
+      213: -337065464516620456
+    second: ex_28
+  - first:
+      213: 3291657083086462530
+    second: ex_29
+  - first:
+      213: -6241451159171386630
+    second: ex_30
+  - first:
+      213: -6953550336588564249
+    second: ex_31
+  - first:
+      213: -1991954198468480807
+    second: ex_32
+  - first:
+      213: -7930837160434952919
+    second: ex_33
+  - first:
+      213: -4695318984441932325
+    second: ex_34
+  - first:
+      213: -5395360153170005950
+    second: ex_35
+  - first:
+      213: 5854180013665138145
+    second: ex_36
+  - first:
+      213: 7435545301785112402
+    second: ex_37
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -32,7 +146,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
+    filterMode: 0
     aniso: -1
     mipBias: -100
     wrapU: 1

@@ -1,6 +1,10 @@
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using UnityEditor;
+using UnityEditor.Experimental.SceneManagement;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class ImgReader : MonoBehaviour
@@ -10,22 +14,44 @@ public class ImgReader : MonoBehaviour
     public int gridSize;
     public int gridOffset;
     public string saveLocation = "Assets/tilesetNEW";
+
+    public Object tileTemp;
+    public Object tilesetTemp;
+    
     int tileNumber = 0;
     private List<Texture2D> textures = new List<Texture2D>();
+    private List<Texture2D> texFiles = new List<Texture2D>();
 
     // Start is called before the first frame update
     void Start()
     {
+       AnalyseImage();
+
+       foreach (var tex in texFiles)
+       {
+           string path = saveLocation + "/tile"+ tex.name + ".prefab";
+           Debug.Log(tex.name);
+           
+           AssetDatabase.CopyAsset(AssetDatabase.GetAssetPath(tileTemp),path);
+           AssetDatabase.ImportAsset(path);
+        
+           SpriteRenderer tile = (SpriteRenderer)AssetDatabase.LoadAssetAtPath(path, typeof(SpriteRenderer));
+           tile.sprite = (Sprite)AssetDatabase.LoadAssetAtPath(
+               AssetDatabase.GetAssetPath(tex), typeof(Sprite));
+           EditorUtility.SetDirty(tile.gameObject);
+       }
+
+       Debug.Log("Done");
+    }
+    
+    private void AnalyseImage()
+    {
         imgSize = inputImage.rect.size;
 
         Color[] pixels = inputImage.texture.GetPixels();
-        Texture2D tex = new Texture2D(gridSize, gridSize);
         Color[] newPixels = new Color[gridSize*gridSize];
         int p = 0;
-        byte[] bytes;
         
-        newPixels = new Color[gridSize*gridSize];
-        p = 0;
         for (int y = 0; y < imgSize.y; y+=gridOffset)
         {
             for (int x = 0; x < imgSize.x; x+=gridOffset)
@@ -44,37 +70,43 @@ public class ImgReader : MonoBehaviour
                 }
 
                 p = 0;
-                tex = new Texture2D(gridSize, gridSize);
+                var tex = new Texture2D(gridSize, gridSize);
                 tex.SetPixels(newPixels, 0);
                 
                 if (!TextureEqualsAny(tex))
                 {
                     textures.Add(tex);
-                     bytes = tex.EncodeToPNG();
+                    byte[] bytes = tex.EncodeToPNG();
                     saveTile(bytes, tileNumber);
                 }
             }
         }
-        Debug.Log("Done");
     }
 
-    void saveTile(byte[] tilebytes, int fileNumber)
+    private void saveTile(byte[] tilebytes, int fileNumber)
     {
         string fileName = (fileNumber < 10) ? "0" + fileNumber : fileNumber.ToString();
         tileNumber++;
         string path = saveLocation + "/" + fileName + ".png";
         File.WriteAllBytes(path, tilebytes);
         AssetDatabase.ImportAsset(path);
+        texFiles.Add((Texture2D)AssetDatabase.LoadAssetAtPath(path, typeof(Texture2D)));
+        
+        TextureImporter importer = (TextureImporter)TextureImporter.GetAtPath(path);
+        importer.isReadable = true;
+        importer.filterMode = FilterMode.Point;
+        EditorUtility.SetDirty(importer);
+        importer.SaveAndReimport();
     }
 
-    bool TextureEqualsAny(Texture2D tex)
+    private bool TextureEqualsAny(Texture2D tex)
     {
         if (textures.Count == 0)
         {
             return false;
         }
         
-        foreach (var texture in textures)
+        foreach (Texture2D texture in textures)
         {
             if (TexturesEqual(tex,texture))
             {
@@ -85,7 +117,7 @@ public class ImgReader : MonoBehaviour
         return false;
     }
     
-    bool TexturesEqual(Texture2D tex1, Texture2D tex2)
+    private bool TexturesEqual(Texture2D tex1, Texture2D tex2)
     {
         var firstPix = tex1.GetPixels();
         var secondPix = tex2.GetPixels();
