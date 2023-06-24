@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.Experimental.SceneManagement;
@@ -14,32 +15,19 @@ public class ImgReader : MonoBehaviour
     public int gridSize;
     public int gridOffset;
     public string saveLocation = "Assets/tilesetNEW";
-
     public Object tileTemp;
     public Object tilesetTemp;
     
     int tileNumber = 0;
-    private List<Texture2D> textures = new List<Texture2D>();
     private List<Texture2D> texFiles = new List<Texture2D>();
+    private Tileset tileset;
 
     // Start is called before the first frame update
     void Start()
     {
        AnalyseImage();
-
-       foreach (var tex in texFiles)
-       {
-           string path = saveLocation + "/tile"+ tex.name + ".prefab";
-           Debug.Log(tex.name);
-           
-           AssetDatabase.CopyAsset(AssetDatabase.GetAssetPath(tileTemp),path);
-           AssetDatabase.ImportAsset(path);
-        
-           SpriteRenderer tile = (SpriteRenderer)AssetDatabase.LoadAssetAtPath(path, typeof(SpriteRenderer));
-           tile.sprite = (Sprite)AssetDatabase.LoadAssetAtPath(
-               AssetDatabase.GetAssetPath(tex), typeof(Sprite));
-           EditorUtility.SetDirty(tile.gameObject);
-       }
+       SaveTiles();
+       
 
        Debug.Log("Done");
     }
@@ -75,7 +63,6 @@ public class ImgReader : MonoBehaviour
                 
                 if (!TextureEqualsAny(tex))
                 {
-                    textures.Add(tex);
                     byte[] bytes = tex.EncodeToPNG();
                     saveTile(bytes, tileNumber);
                 }
@@ -95,18 +82,19 @@ public class ImgReader : MonoBehaviour
         TextureImporter importer = (TextureImporter)TextureImporter.GetAtPath(path);
         importer.isReadable = true;
         importer.filterMode = FilterMode.Point;
+        importer.textureCompression = TextureImporterCompression.Uncompressed;
         EditorUtility.SetDirty(importer);
         importer.SaveAndReimport();
     }
 
     private bool TextureEqualsAny(Texture2D tex)
     {
-        if (textures.Count == 0)
+        if (texFiles.Count == 0)
         {
             return false;
         }
         
-        foreach (Texture2D texture in textures)
+        foreach (Texture2D texture in texFiles)
         {
             if (TexturesEqual(tex,texture))
             {
@@ -133,5 +121,26 @@ public class ImgReader : MonoBehaviour
         return true;
     }
 
+    private void SaveTiles()
+    { 
+        string path = saveLocation + "/tileset.prefab";
+        AssetDatabase.CopyAsset(AssetDatabase.GetAssetPath(tilesetTemp),path);
+        AssetDatabase.ImportAsset(path);
+        tileset = (Tileset)AssetDatabase.LoadAssetAtPath(path, typeof(Tileset));
+       
+
+        foreach (var tex in texFiles)
+        {
+            path = saveLocation + "/tile"+ tex.name + ".prefab";
+           
+            AssetDatabase.CopyAsset(AssetDatabase.GetAssetPath(tileTemp),path);
+            AssetDatabase.ImportAsset(path);
+        
+            SpriteRenderer tile = (SpriteRenderer)AssetDatabase.LoadAssetAtPath(path, typeof(SpriteRenderer));
+            tile.sprite = (Sprite)AssetDatabase.LoadAssetAtPath(AssetDatabase.GetAssetPath(tex), typeof(Sprite));
+           
+            tileset.tiles.Add(tile.gameObject.GetComponent<Tile>());
+        }
+    }
 
 }
