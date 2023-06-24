@@ -1,35 +1,52 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public class ImgReader : MonoBehaviour
 {
     [SerializeField] Sprite inputImage;
-    Vector2 imgSize;
     public int gridSize;
     public int gridOffset;
     public string saveLocation = "Assets/tilesetNEW";
     public Object tileTemp;
     
+    private Vector2 imgSize;
     int tileNumber = 0;
     private List<Texture2D> texFiles = new List<Texture2D>();
     private Tileset tileset;
+    private string[,] tileIdGrid;
+    private int gridX = 0;
+    private int gridY = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-       AnalyseImage();
-       SaveTiles();
-       
+        imgSize = inputImage.rect.size;
+        tileIdGrid = new String[(int)Math.Ceiling(imgSize.x / gridOffset), (int)Math.Ceiling(imgSize.y / gridOffset)];
+        gridY = tileIdGrid.GetLength(1)-1;
+        
+        AnalyseImage(); 
+        SaveTiles();
 
-       Debug.Log("Done");
+        string a = "";
+        
+        for (int i = 0; i < tileIdGrid.GetLength(1); i++)
+        {
+            for (int j = 0; j < tileIdGrid.GetLength(0); j++)
+            {
+                a += tileIdGrid[i,j] + ", ";
+            }
+            a += "\n";
+        }
+        
+        Debug.Log(a);
     }
-    
+
     private void AnalyseImage()
     {
-        imgSize = inputImage.rect.size;
-
         Color[] pixels = inputImage.texture.GetPixels();
         Color[] newPixels = new Color[gridSize*gridSize];
         int p = 0;
@@ -54,12 +71,26 @@ public class ImgReader : MonoBehaviour
                 p = 0;
                 var tex = new Texture2D(gridSize, gridSize);
                 tex.SetPixels(newPixels, 0);
+
+                var tileID = TextureEqualsAny(tex);
                 
-                if (!TextureEqualsAny(tex))
+                if (tileID == null)
                 {
                     byte[] bytes = tex.EncodeToPNG();
+                    
+                    tileIdGrid[gridY, gridX] = tileNumber < 10 ? "0" + tileNumber : tileNumber.ToString();
                     saveTile(bytes, tileNumber);
                 }
+                else
+                {
+                    tileIdGrid[gridY, gridX] = tileID;
+                }
+                gridX++;
+                    if (gridX >= tileIdGrid.GetLength(0))
+                    {
+                        gridX -= tileIdGrid.GetLength(0);
+                        gridY--;
+                    }
             }
         }
     }
@@ -81,22 +112,22 @@ public class ImgReader : MonoBehaviour
         importer.SaveAndReimport();
     }
 
-    private bool TextureEqualsAny(Texture2D tex)
+    private string TextureEqualsAny(Texture2D tex)
     {
         if (texFiles.Count == 0)
         {
-            return false;
+            return null;
         }
         
         foreach (Texture2D texture in texFiles)
         {
             if (TexturesEqual(tex,texture))
             {
-                return true;
+                return texture.name;
             }
         }
 
-        return false;
+        return null;
     }
     
     private bool TexturesEqual(Texture2D tex1, Texture2D tex2)
