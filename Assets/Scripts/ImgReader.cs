@@ -1,11 +1,6 @@
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.IO.Compression;
-using System.Linq;
 using UnityEditor;
-using UnityEditor.Experimental.SceneManagement;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class ImgReader : MonoBehaviour
@@ -16,7 +11,6 @@ public class ImgReader : MonoBehaviour
     public int gridOffset;
     public string saveLocation = "Assets/tilesetNEW";
     public Object tileTemp;
-    public Object tilesetTemp;
     
     int tileNumber = 0;
     private List<Texture2D> texFiles = new List<Texture2D>();
@@ -123,24 +117,33 @@ public class ImgReader : MonoBehaviour
 
     private void SaveTiles()
     { 
-        string path = saveLocation + "/tileset.prefab";
-        AssetDatabase.CopyAsset(AssetDatabase.GetAssetPath(tilesetTemp),path);
-        AssetDatabase.ImportAsset(path);
-        tileset = (Tileset)AssetDatabase.LoadAssetAtPath(path, typeof(Tileset));
-       
+        string path;
+        
+        tileset =  new GameObject().AddComponent<Tileset>();
 
         foreach (var tex in texFiles)
         {
             path = saveLocation + "/tile"+ tex.name + ".prefab";
            
+            //duplicate tile template
             AssetDatabase.CopyAsset(AssetDatabase.GetAssetPath(tileTemp),path);
             AssetDatabase.ImportAsset(path);
         
+            // add texture to tile and set correct size
             SpriteRenderer tile = (SpriteRenderer)AssetDatabase.LoadAssetAtPath(path, typeof(SpriteRenderer));
             tile.sprite = (Sprite)AssetDatabase.LoadAssetAtPath(AssetDatabase.GetAssetPath(tex), typeof(Sprite));
-           
+            tile.size = new Vector2(0.5f, 0.5f);
+
+            // add tile to tileset
             tileset.tiles.Add(tile.gameObject.GetComponent<Tile>());
         }
+        // create another tile and immediatly deleting it bc else the texture of the last tile won't save ?(don't ask)
+        path = saveLocation + "/tile.prefab";
+        AssetDatabase.CopyAsset(AssetDatabase.GetAssetPath(tileTemp),path);
+        AssetDatabase.DeleteAsset(path);
+        
+        // save tileset as Prefab
+        PrefabUtility.SaveAsPrefabAsset(tileset.gameObject, saveLocation + "/tileset.prefab");
     }
 
 }
