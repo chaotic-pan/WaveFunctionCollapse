@@ -7,6 +7,12 @@ public class ConnectionRule
 {
     public Tile tile;
     public float frequencyNotes;
+
+    public ConnectionRule(Tile tile, float frequencyNotes)
+    {
+        this.tile = tile;
+        this.frequencyNotes = frequencyNotes;
+    }
 }
 
 public class Tile : MonoBehaviour
@@ -17,8 +23,8 @@ public class Tile : MonoBehaviour
     [SerializeField] public List<Tile> LeftConnections = new List<Tile>();
     [SerializeField] public List<Tile> RightConnections = new List<Tile>();
 
-    public ConnectionRule[] UpRules;
-    public ConnectionRule[] DownRules;
-    public ConnectionRule[] LeftRules;
-    public ConnectionRule[] RightRules;
+    public List<ConnectionRule> UpRules;
+    public List<ConnectionRule> DownRules;
+    public List<ConnectionRule> LeftRules;
+    public List<ConnectionRule> RightRules;
 }
