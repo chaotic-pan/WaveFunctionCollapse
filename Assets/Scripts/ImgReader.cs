@@ -12,6 +12,7 @@ public class ImgReader : MonoBehaviour
     public int gridOffset;
     public string saveLocation = "Assets/tilesetNEW";
     public GameObject tileTemp;
+    public bool wrap;
     
     private Vector2 imgSize;
     int tileNumber = 0;
@@ -25,46 +26,93 @@ public class ImgReader : MonoBehaviour
     void Start()
     {
         imgSize = inputImage.rect.size;
-        tileIdGrid = new String[(int)Math.Ceiling(imgSize.x / gridOffset), (int)Math.Ceiling(imgSize.y / gridOffset)];
+
+        if (!wrap)
+        {
+            var lenght = (imgSize.x - gridSize) / gridOffset;
+            var width = (imgSize.y - gridSize) / gridOffset;
+            if (lenght % 1 != 0 || width % 1 != 0)
+            {
+                Debug.Log("ERROR: Image size doesn't match given tile parameters. Either choose gridSize and gridOffset" +
+                          " differently or enable wrap \nImage Size: " + imgSize.x + "x" + imgSize.y +
+                          "\nGrid Size: " + gridSize + "\nGrid Offset: " + gridOffset + "\nWrap: " + wrap);
+                return;
+            }
+            
+            tileIdGrid = new String[(int)Math.Floor(imgSize.x / gridOffset), (int)Math.Floor(imgSize.y / gridOffset)];
+        }
+        else
+        {
+            tileIdGrid = new String[(int)Math.Ceiling(imgSize.x / gridOffset), (int)Math.Ceiling(imgSize.y / gridOffset)];
+        }
+        
         gridY = tileIdGrid.GetLength(1)-1;
         
         AnalyseImage(); 
         SaveTiles();
 
+         // debug log tileIdGrid
+        string a = "\n";
         for (int i = 0; i < tileIdGrid.GetLength(1); i++)
         {
             for (int j = 0; j < tileIdGrid.GetLength(0); j++)
             {
-                Tile t = (Tile)AssetDatabase.LoadAssetAtPath(
-                    saveLocation + "/tile" + tileIdGrid[i, j] + ".prefab", typeof(Tile));
+                a += tileIdGrid[i, j] + ", ";
+            }
+        
+            a += "\n";
+        }
+        Debug.Log(a);
+        
+        for (int i = 0; i < tileIdGrid.GetLength(1); i++)
+        {
+            for (int j = 0; j < tileIdGrid.GetLength(0); j++)
+            {
+                string path = saveLocation + "/tile" + tileIdGrid[i, j] + ".prefab";
+                Tile t = (Tile)AssetDatabase.LoadAssetAtPath(path , typeof(Tile));
+
+               
                 
+                if (i > 0)
+                {
+                    AddConnectionTile(t.UpRules, tileIdGrid[i - 1, j]);
+                }
+                else if (wrap)
+                {
+                    AddConnectionTile(t.UpRules, tileIdGrid[tileIdGrid.GetLength(1) - 1, j]);
+                }
                 
-                AddConnectionTile(t.UpRules, 
-                    i > 0 ? tileIdGrid[i - 1, j] : tileIdGrid[tileIdGrid.GetLength(1) - 1, j]);
+                if (i < tileIdGrid.GetLength(1) - 1)
+                {
+                    AddConnectionTile(t.DownRules, tileIdGrid[i + 1, j]);
+                }
+                else if (wrap)
+                {
+                    AddConnectionTile(t.DownRules,tileIdGrid[0, j]);
+                }
+                    
+                if (j > 0)
+                {
+                    AddConnectionTile(t.LeftRules, tileIdGrid[i, j - 1]);
+                }
+                else if (wrap)
+                {
+                    AddConnectionTile(t.LeftRules,tileIdGrid[i, tileIdGrid.GetLength(1) - 1]);
+                }
+                    
+                if ( j < tileIdGrid.GetLength(1) - 1)
+                {
+                    AddConnectionTile(t.RightRules, tileIdGrid[i, j + 1]);
+                }
+                else if (wrap)
+                {
+                    AddConnectionTile(t.RightRules,tileIdGrid[i, 0]);
+                }
 
-                AddConnectionTile(t.DownRules,
-                    i < tileIdGrid.GetLength(1) - 1 ? tileIdGrid[i + 1, j] : tileIdGrid[0, j]);
-
-                AddConnectionTile(t.LeftRules,
-                    j > 0 ? tileIdGrid[i, j - 1] : tileIdGrid[i, tileIdGrid.GetLength(1) - 1]);
-
-                AddConnectionTile(t.RightRules,
-                    j < tileIdGrid.GetLength(1) - 1 ? tileIdGrid[i, j + 1] : tileIdGrid[i, 0]);
             }
         }
 
-        //  // debug log tileIdGrid
-        // string a = "";
-        // for (int i = 0; i < tileIdGrid.GetLength(1); i++)
-        // {
-        //     for (int j = 0; j < tileIdGrid.GetLength(0); j++)
-        //     {
-        //         a += tileIdGrid[i, j] + ", ";
-        //     }
-        //
-        //     a += "\n";
-        // }
-        // Debug.Log(a);
+        
         
     }
 
@@ -74,9 +122,9 @@ public class ImgReader : MonoBehaviour
         Color[] newPixels = new Color[gridSize*gridSize];
         int p = 0;
         
-        for (int y = 0; y < imgSize.y; y+=gridOffset)
+        for (int y = 0; y < imgSize.y-gridSize+1; y+=gridOffset)
         {
-            for (int x = 0; x < imgSize.x; x+=gridOffset)
+            for (int x = 0; x < imgSize.x-gridSize+1; x+=gridOffset)
             {
                 for (int Ty = y; Ty < y+gridSize; Ty++)
                 {
@@ -101,11 +149,13 @@ public class ImgReader : MonoBehaviour
                 {
                     byte[] bytes = tex.EncodeToPNG();
                     
+                    //TODO idk why x and y have to be switched here, but if they don't shit starts to break
                     tileIdGrid[gridY, gridX] = tileNumber < 10 ? "0" + tileNumber : tileNumber.ToString();
                     saveTile(bytes, tileNumber);
                 }
                 else
                 {
+                    //and again: idk why x and y have to be switched here, but if they don't shit starts to break
                     tileIdGrid[gridY, gridX] = tileID;
                 }
                 gridX++;

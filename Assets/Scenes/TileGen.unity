@@ -313,12 +313,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc4a40330747d7543b1d05017892412f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputImage: {fileID: 21300000, guid: 9aeabc7a95c1fb34f86b4f5baac422c2, type: 3}
-  gridSize: 32
-  gridOffset: 16
-  saveLocation: Assets/Tilesets/tilesetNEW
+  inputImage: {fileID: 21300000, guid: e4fc1d49e3e00f545a3e5fa445b8886c, type: 3}
+  gridSize: 48
+  gridOffset: 48
+  saveLocation: Assets/Tilesets/TilesFromMap2/inLine
   tileTemp: {fileID: 767305176383826964, guid: d2cb98b72ae8f8d4ca74361abcf45791, type: 3}
-  tilesetTemp: {fileID: 833947371828319447, guid: 576fdb65f9ea68e40aaa25b412ef06be, type: 3}
+  wrap: 0
 --- !u!114 &2055131427
 MonoBehaviour:
   m_ObjectHideFlags: 0

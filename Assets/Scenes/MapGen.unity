@@ -548,10 +548,10 @@ MonoBehaviour:
   comment: "tile frequency notes + connection frequency notes\ncell collapse reduces
     possibilities neighbours' neighbours  \nif tile has no possibilities left, restart
     all "
-  tileset: {fileID: 5209168786779872923, guid: 9345aeeb113db0745802c4f8d0462978, type: 3}
+  tileset: {fileID: 4094094402119128274, guid: 99695dd2f50ad7d4eade456f07e0d68a, type: 3}
   gridCell: {fileID: 7372007931969386789, guid: 9226b533b10f82f4ab0a8fc4087eee92, type: 3}
-  columns: 28
-  rows: 16
+  columns: 9
+  rows: 9
   debug: 0
 --- !u!1 &1710589735
 GameObject:
