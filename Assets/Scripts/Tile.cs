@@ -17,7 +17,7 @@ public class ConnectionRule
 
 public class Tile : MonoBehaviour
 {
-    public float frequencyHints = 1;
+    public float frequencyNotes = 1;
     [SerializeField] public List<Tile> UpConnections = new List<Tile>();
     [SerializeField] public List<Tile> DownConnections = new List<Tile>();
     [SerializeField] public List<Tile> LeftConnections = new List<Tile>();

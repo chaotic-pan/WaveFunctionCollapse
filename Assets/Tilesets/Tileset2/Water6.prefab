@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2775b1608a4b8e49a3832dfaa08f956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frequencyHints: 0.5
+  frequencyNotes: 2
   UpConnections:
   - {fileID: 5105530051119060532, guid: f8669da1e4be17841914819088876f0b, type: 3}
   - {fileID: 5105530051119060532}

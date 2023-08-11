@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2775b1608a4b8e49a3832dfaa08f956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frequencyHints: 1
+  frequencyNotes: 1
   UpConnections:
   - {fileID: 5433041552907139003, guid: 50ec6d584861ab145a520b3c0e02126b, type: 3}
   - {fileID: 483555245576982737, guid: 8f59e00f89b054746b1822dfbc150ede, type: 3}
@@ -128,7 +128,7 @@ MonoBehaviour:
   - tile: {fileID: 5433041552907139003, guid: 50ec6d584861ab145a520b3c0e02126b, type: 3}
     frequencyNotes: 1
   - tile: {fileID: 483555245576982737, guid: 8f59e00f89b054746b1822dfbc150ede, type: 3}
-    frequencyNotes: 2
+    frequencyNotes: 1
   - tile: {fileID: -1367575519796693076, guid: eda83c6ea53c0524e981c1b7719e26c0, type: 3}
     frequencyNotes: 1
   - tile: {fileID: 6505312197528197692, guid: 1e4c46011d3f3d147a4692eea7900c02, type: 3}
@@ -145,16 +145,16 @@ MonoBehaviour:
   - tile: {fileID: 6505312197528197692, guid: 1e4c46011d3f3d147a4692eea7900c02, type: 3}
     frequencyNotes: 1
   - tile: {fileID: -296656175652711587, guid: 2d33ef14e4009af42ac6328f69354455, type: 3}
-    frequencyNotes: 0.5
+    frequencyNotes: 1
   - tile: {fileID: -2392538481345987728, guid: c8fa97396dc983c4a9358c0633ee89b3, type: 3}
-    frequencyNotes: 0.5
+    frequencyNotes: 1
   - tile: {fileID: 3151693884286934512, guid: 9a79114a0519bd1409195204436e2a87, type: 3}
-    frequencyNotes: 0.5
+    frequencyNotes: 1
   LeftRules:
   - tile: {fileID: -8177486137060338608, guid: 1e5623afb598f0d43858a1eb42ddff4e, type: 3}
     frequencyNotes: 1
   - tile: {fileID: 483555245576982737, guid: 8f59e00f89b054746b1822dfbc150ede, type: 3}
-    frequencyNotes: 2
+    frequencyNotes: 1
   - tile: {fileID: 6505312197528197692, guid: 1e4c46011d3f3d147a4692eea7900c02, type: 3}
     frequencyNotes: 1
   - tile: {fileID: 935907247985218892, guid: a739ddce0fb26ae498791d57d8a2707a, type: 3}
@@ -171,8 +171,8 @@ MonoBehaviour:
   - tile: {fileID: 935907247985218892, guid: a739ddce0fb26ae498791d57d8a2707a, type: 3}
     frequencyNotes: 1
   - tile: {fileID: -296656175652711587, guid: 2d33ef14e4009af42ac6328f69354455, type: 3}
-    frequencyNotes: 0.5
+    frequencyNotes: 1
   - tile: {fileID: -2392538481345987728, guid: c8fa97396dc983c4a9358c0633ee89b3, type: 3}
-    frequencyNotes: 0.5
+    frequencyNotes: 1
   - tile: {fileID: 9159233478886950280, guid: 49aaa8d37ea127d468f5f868cb8cf5c8, type: 3}
-    frequencyNotes: 0.5
+    frequencyNotes: 1

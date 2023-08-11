@@ -303,10 +303,11 @@ GameObject:
   - component: {fileID: 1549244599}
   - component: {fileID: 1549244598}
   - component: {fileID: 1549244605}
-  - component: {fileID: 1549244606}
   - component: {fileID: 1549244607}
   - component: {fileID: 1549244608}
   - component: {fileID: 1549244609}
+  - component: {fileID: 1549244606}
+  - component: {fileID: 1549244610}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -472,11 +473,10 @@ MonoBehaviour:
 
     if
     tile has no possibilities left, restart all'
-  tileset: {fileID: 5238309182288177854, guid: 665f31cecaf414f4d94a259cad2d4a98, type: 3}
+  tileset: {fileID: 5209168786779872923, guid: 9345aeeb113db0745802c4f8d0462978, type: 3}
   gridCell: {fileID: 7372007931969386789, guid: 9226b533b10f82f4ab0a8fc4087eee92, type: 3}
-  columns: 28
-  rows: 16
-  debug: 0
+  columns: 30
+  rows: 30
 --- !u!114 &1549244606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -486,15 +486,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1549244597}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4cc6878c5ac4b748e76502e09e25b8d, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c21889fe43b4cf1823a80e57f0ea105, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  comment: "after cell collapse, iterate thru all cells again and compare their possibilities
-    with direct neighbours \nif tile has no possibilities left, restart all"
-  tileset: {fileID: 5209168786779872923, guid: 9345aeeb113db0745802c4f8d0462978, type: 3}
+  comment: "fixed lowestEntropy double-call and earlier contradiction recognition\ncell
+    collapse reduces only possibilities of directly neighbouring cells \nif tile
+    has no possibilities left, restart all"
+  tileset: {fileID: 5238309182288177854, guid: 665f31cecaf414f4d94a259cad2d4a98, type: 3}
   gridCell: {fileID: 7372007931969386789, guid: 9226b533b10f82f4ab0a8fc4087eee92, type: 3}
-  columns: 28
-  rows: 16
+  columns: 20
+  rows: 20
 --- !u!114 &1549244607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -509,31 +510,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   comment: "cell collapse reduces possibilities neighbours' neighbours  \nif tile
     has no possibilities left, restart all"
-  tileset: {fileID: 5209168786779872923, guid: 9345aeeb113db0745802c4f8d0462978, type: 3}
-  gridCell: {fileID: 7372007931969386789, guid: 9226b533b10f82f4ab0a8fc4087eee92, type: 3}
-  columns: 28
-  rows: 16
-  debug: 0
---- !u!114 &1549244608
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1549244597}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fea497583bb4705b9136d42ea42d411, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  comment: "frequency Hints \ncell collapse reduces possibilities neighbours' neighbours 
-    \nif tile has no possibilities left, restart all "
   tileset: {fileID: 5238309182288177854, guid: 665f31cecaf414f4d94a259cad2d4a98, type: 3}
   gridCell: {fileID: 7372007931969386789, guid: 9226b533b10f82f4ab0a8fc4087eee92, type: 3}
-  columns: 28
-  rows: 16
-  debug: 0
---- !u!114 &1549244609
+  columns: 30
+  rows: 30
+--- !u!114 &1549244608
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -542,17 +523,53 @@ MonoBehaviour:
   m_GameObject: {fileID: 1549244597}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fea497583bb4705b9136d42ea42d411, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comment: "frequency Hints \ncell collapse reduces possibilities neighbours' neighbours 
+    \nif tile has no possibilities left, restart all "
+  tileset: {fileID: 5238309182288177854, guid: 665f31cecaf414f4d94a259cad2d4a98, type: 3}
+  gridCell: {fileID: 7372007931969386789, guid: 9226b533b10f82f4ab0a8fc4087eee92, type: 3}
+  columns: 20
+  rows: 20
+--- !u!114 &1549244609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549244597}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26bb67bd6d8b4c599712f0d43ffbc2ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   comment: "tile frequency notes + connection frequency notes\ncell collapse reduces
     possibilities neighbours' neighbours  \nif tile has no possibilities left, restart
     all "
-  tileset: {fileID: 4094094402119128274, guid: 99695dd2f50ad7d4eade456f07e0d68a, type: 3}
+  tileset: {fileID: 5209168786779872923, guid: 9345aeeb113db0745802c4f8d0462978, type: 3}
   gridCell: {fileID: 7372007931969386789, guid: 9226b533b10f82f4ab0a8fc4087eee92, type: 3}
-  columns: 9
-  rows: 9
-  debug: 0
+  columns: 20
+  rows: 20
+--- !u!114 &1549244610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549244597}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4001aa97e8684d67856e70fb6ac4ad5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comment: "fixed lowestEntropy double-call and earlier contradiction recognition\ncell
+    collapse reduces possibilities neighbours' neighbours  \nif tile has no possibilities
+    left, restart all"
+  tileset: {fileID: 5209168786779872923, guid: 9345aeeb113db0745802c4f8d0462978, type: 3}
+  gridCell: {fileID: 7372007931969386789, guid: 9226b533b10f82f4ab0a8fc4087eee92, type: 3}
+  columns: 20
+  rows: 20
 --- !u!1 &1710589735
 GameObject:
   m_ObjectHideFlags: 0

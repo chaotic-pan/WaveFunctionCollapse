@@ -314,9 +314,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputImage: {fileID: 21300000, guid: e4fc1d49e3e00f545a3e5fa445b8886c, type: 3}
-  gridSize: 48
-  gridOffset: 48
-  saveLocation: Assets/Tilesets/TilesFromMap2/inLine
+  tileSize: 48
+  tileOffset: 48
+  saveLocation: Assets/Tilesets/A
   tileTemp: {fileID: 767305176383826964, guid: d2cb98b72ae8f8d4ca74361abcf45791, type: 3}
   wrap: 0
 --- !u!114 &2055131427
